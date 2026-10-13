@@ -1263,6 +1263,622 @@ $('itemClarifyApplyBtn').addEventListener(
  'click',itemClarifyApply
 );
 
+
+// PART 1/2 — Smart landing-language interpreter.
+// Paste inside the existing script, before its closing tag.
+// Preserves existing saves, items, rules, and world mechanics.
+
+const LRS09_previousParseEffect = parseEffect;
+const LRS09_previousTargets = targets;
+
+const LRS09_numberWords = {
+  zero:0, one:1, two:2, three:3, four:4,
+  five:5, six:6, seven:7, eight:8, nine:9, ten:10
+};
+
+const LRS09_hpWords =
+  /\b(?:hp|health|life|lives|hit points?|damage)\b/i;
+
+const LRS09_hpVerb =
+  /\b(?:minus(?:es|ed)?|subtract(?:s|ed)?|deduct(?:s|ed)?|reduce(?:s|d)?|decrease(?:s|d)?|lose|loses|lost|take|takes|deal|deals|damage|damages|hurt|hurts|suffer|suffers|gain|gains|heal|heals|restore|restores|regain|regains|plus|add|adds)\b/i;
+
+const LRS09_badCondition =
+  /\b(?:unless|only if|provided that|except when|as long as|while|if the (?:player|opponent|owner|creator|target) (?:has|have|is|are)|\d+\s*%|percent chance)\b/i;
+
+function LRS09_number(x) {
+  const n = /^\d+$/.test(x)
+    ? Number(x)
+    : LRS09_numberWords[x];
+
+  return Number.isInteger(n) && n >= 0 && n <= 10000
+    ? n
+    : null;
+}
+
+function LRS09_landingBody(description) {
+  const source = clean(description);
+
+  const start = source.search(
+    /\b(?:when|whenever|once|if)\b.{0,80}\b(?:land|lands|landing|step|steps|enter|enters)\b|\b(?:on|upon)\s+(?:landing|entering)\b/i
+  );
+
+  return start < 0
+    ? ''
+    : source.slice(start).replace(
+        /^.{0,100}?\b(?:land(?:s|ing)?|step(?:s)?|enter(?:s|ing)?)\b\s*(?:on|upon|in|at|onto)?\s*(?:this|the|it|a|that)?\s*(?:space|tile|square|spot)?\s*[,;:]?\s*/i,
+        ''
+      );
+}
+
+function LRS09_compileSpace(description) {
+  const body = LRS09_landingBody(description);
+
+  const result = {
+    effects: [],
+    errors: [],
+    matched: 0,
+    attempted: 0,
+    eligible: !!body
+  };
+
+  if (!body) return result;
+
+  if (LRS09_badCondition.test(body)) {
+    result.errors.push(
+      'Conditional landing abilities require Teach Referee or World Studio; no effects were guessed.'
+    );
+    return result;
+  }
+
+  const chunks = body
+    .replace(/\s+but\s+/gi, '; ')
+    .replace(
+      /\s+and\s+(?=(?:(?:then|also|it|they|you|your|their|the|an?|every|each|all|everyone|someone|whoever|anyone|opponent|enemy|creator|owner)\s+){0,4}\b(?:minus|minus(?:es)?|lose|loses|take|takes|deal|deals|damage|damages|hurt|hurts|subtract|subtracts|gain|gains|heal|heals|restore|restores|plus|add|adds)\b|(?:their|your|the)\s+opponent\b)/gi,
+      '; '
+    )
+    .replace(
+      /,\s*(?=(?:(?:then|also|it|they|you|your|their|the|an?|every|each|all|everyone|someone|whoever|anyone|opponent|enemy|creator|owner)\s+){0,4}\b(?:minus|minus(?:es)?|lose|loses|take|takes|deal|deals|damage|damages|hurt|hurts|subtract|subtracts|gain|gains|heal|heals|restore|restores|plus|add|adds)\b|(?:their|your|the)\s+opponent\b)/gi,
+      '; '
+    )
+    .split(/[;.]/)
+    .map(clean)
+    .filter(Boolean);
+
+  for (const clause of chunks) {
+    const low = clause.toLowerCase();
+
+    if (!LRS09_hpVerb.test(low)) continue;
+
+    // Keep resource effects separate from HP effects.
+    if (
+      /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:gold|coins?|gems?|diamonds?|keys?|money|energy|turns?|spaces?|items?)\b/i.test(low)
+    ) {
+      continue;
+    }
+
+    // A later clause can inherit HP from the preceding clause.
+    if (
+      !LRS09_hpWords.test(low) &&
+      !LRS09_hpWords.test(body)
+    ) {
+      continue;
+    }
+
+    result.attempted++;
+
+    const action =
+      /\b(?:gain|gains|heal|heals|restore|restores|regain|regains|plus|add|adds|increase|increases)\b/.test(low)
+        ? 1
+        : -1;
+
+    const verb = low.match(
+      /\b(?:minus(?:es|ed)?|subtract(?:s|ed)?|deduct(?:s|ed)?|reduce(?:s|d)?|decrease(?:s|d)?|lose|loses|lost|take|takes|deal|deals|damage|damages|hurt|hurts|suffer|suffers|gain|gains|heal|heals|restore|restores|regain|regains|plus|add|adds)\b/
+    );
+
+    const after = verb
+      ? low.slice(verb.index + verb[0].length)
+      : '';
+
+    const match = after.match(
+      /\b(\d{1,5}|one|two|three|four|five|six|seven|eight|nine|ten)\b/
+    );
+
+    if (!match) {
+      result.errors.push(
+        'Could not identify an HP amount in "' +
+        clause.slice(0, 75) +
+        '".'
+      );
+      continue;
+    }
+
+    const amount = LRS09_number(match[1]);
+
+    if (amount === null) {
+      result.errors.push(
+        'HP amount must be between 0 and 10,000.'
+      );
+      continue;
+    }
+
+    const targetsOther =
+      /\b(?:opponent|opponents|enemy|enemies|everyone else|everybody else|all other players|other players|another player|someone else)\b/.test(low);
+
+    const pluralOther =
+      /\b(?:all opponents|every opponent|opponents|everyone else|everybody else|all other players|other players)\b/.test(low);
+
+    const own =
+      /\b(?:the creator|the owner|its owner|myself|to me|for me)\b/.test(low);
+
+    const all =
+      /\b(?:everyone|every player|all players|everybody)\b/.test(low) &&
+      !targetsOther;
+
+    let target = targetsOther
+      ? 'opponents'
+      : own
+        ? 'owner'
+        : all
+          ? 'all'
+          : 'actor';
+
+    // Avoid guessing which opponent is meant in multiplayer.
+    if (
+      targetsOther &&
+      !pluralOther &&
+      game &&
+      game.players.filter(p => p.hp > 0).length > 2
+    ) {
+      result.errors.push(
+        '"Your opponent" is ambiguous with 3+ players. Say "all opponents" or teach a specific player target.'
+      );
+      continue;
+    }
+
+    result.effects.push({
+      type: 'hp',
+      amount: amount * action,
+      target
+    });
+
+    result.matched++;
+  }
+
+  if (
+    result.attempted > result.matched &&
+    !result.errors.length
+  ) {
+    result.errors.push(
+      'Some HP clauses were not understood. Reword or use Teach Referee.'
+    );
+  }
+
+  if (result.effects.length > 12) {
+    result.errors.push(
+      'Maximum 12 executable landing effects.'
+    );
+  }
+
+  return result;
+}
+
+// Opponents are relative to the PLAYER WHO LANDED.
+// They are not relative to whoever created the space.
+
+targets = function(kind, actorId, ownerId, chosenId) {
+  if (kind === 'opponents') {
+    return alive().filter(p => p.id !== actorId);
+  }
+
+  return LRS09_previousTargets(
+    kind,
+    actorId,
+    ownerId,
+    chosenId
+  );
+};
+
+// Integrate the improved interpreter with the existing engine.
+
+parseEffect = function(description, defaultTarget = 'actor') {
+  const original = LRS09_previousParseEffect(
+    description,
+    defaultTarget
+  );
+
+  const smart = LRS09_compileSpace(description);
+
+  if (
+    !smart.eligible ||
+    !smart.matched ||
+    smart.errors.length
+  ) {
+    return original;
+  }
+
+  // Preserve currency effects from the old engine.
+  // Replace HP landing effects with the correctly targeted ones.
+
+  return [
+    ...smart.effects,
+    ...original.filter(e => e.type !== 'hp')
+  ].slice(0, 12);
+};
+
+// PART 2/2 — Creation safety, saved-space repair, and referee explanations.
+
+const LRS09_previousCreateSpace = createSpace;
+const LRS09_previousPreviewCreation = previewCreation;
+const LRS09_previousRefSmartClauses = refSmartClauses;
+const LRS09_previousRender = render;
+
+function LRS09_spaceReview(description) {
+  const parsed = LRS09_compileSpace(description);
+
+  if (!parsed.eligible) {
+    return { parsed, problem: '' };
+  }
+
+  if (parsed.errors.length) {
+    return {
+      parsed,
+      problem:
+        'Referee cannot safely create this landing ability: ' +
+        parsed.errors.join(' ')
+    };
+  }
+
+  if (
+    parsed.attempted &&
+    !parsed.effects.length
+  ) {
+    return {
+      parsed,
+      problem:
+        'The referee did not understand the HP change. ' +
+        'Try: "When someone lands, they lose 1 HP ' +
+        'and all opponents lose 5 HP."'
+    };
+  }
+
+  return { parsed, problem: '' };
+}
+
+// Validate landing language before accepting a new space.
+
+createSpace = function(description, teaching = null) {
+  if (!teaching) {
+    const review = LRS09_spaceReview(description);
+
+    if (review.problem) {
+      return review.problem;
+    }
+  }
+
+  return LRS09_previousCreateSpace(
+    description,
+    teaching
+  );
+};
+
+// Show the actual actions the referee understands.
+
+previewCreation = function() {
+  LRS09_previousPreviewCreation();
+
+  if (
+    creationKind !== 'space' ||
+    !game
+  ) {
+    return;
+  }
+
+  const review = LRS09_spaceReview(
+    clean($('creationText').value)
+  );
+
+  if (!review.parsed.eligible) return;
+
+  const box = $('previewBox');
+  box.hidden = false;
+
+  if (review.problem) {
+    box.textContent +=
+      '\n\n⚠ ' + review.problem;
+    return;
+  }
+
+  if (review.parsed.effects.length) {
+    const names = {
+      actor: 'the player landing',
+      opponents: 'every other living player',
+      owner: 'the creator',
+      all: 'all living players'
+    };
+
+    const explanations = review.parsed.effects.map(
+      (effect, index) => {
+        const operation =
+          effect.amount < 0 ? 'Lose ' : 'Gain ';
+
+        return (
+          (index + 1) + '. ' +
+          operation +
+          Math.abs(effect.amount) +
+          ' HP → ' +
+          (names[effect.target] || effect.target)
+        );
+      }
+    );
+
+    box.textContent +=
+      '\n\nEXECUTABLE LANDING ACTIONS:\n' +
+      explanations.join('\n');
+
+    box.textContent +=
+      '\nHealth changes occur only when someone ' +
+      'MOVES ONTO the space, not while standing still.';
+  }
+};
+
+// Improve the suggestions given by Teach Referee.
+
+refSmartClauses = function(description, kind) {
+  const original = LRS09_previousRefSmartClauses(
+    description,
+    kind
+  );
+
+  if (kind !== 'space') {
+    return original;
+  }
+
+  const review = LRS09_spaceReview(description);
+
+  if (review.problem) {
+    original.warnings.push(review.problem);
+    return original;
+  }
+
+  if (!review.parsed.effects.length) {
+    return original;
+  }
+
+  original.trigger = 'land';
+
+  original.actions = review.parsed.effects.map(
+    effect => ({
+      ...defaultTeachAction(),
+      type:
+        effect.amount < 0 ? 'damage' : 'heal',
+      target:
+        effect.target === 'opponents'
+          ? 'others'
+          : effect.target,
+      amount: Math.abs(effect.amount)
+    })
+  );
+
+  // The existing teaching engine already targets "others"
+  // relative to the player triggering an action.
+
+  original.warnings = original.warnings.filter(
+    warning =>
+      !/selected opponent requires/i.test(warning)
+  );
+
+  return original;
+};
+
+// Repair saved spaces created before this interpreter update.
+// Do not overwrite manually taught spaces.
+
+function LRS09_repairSavedSpaces() {
+  if (
+    !game ||
+    !Array.isArray(game.tiles)
+  ) {
+    return 0;
+  }
+
+  let repaired = 0;
+
+  for (const tile of game.tiles) {
+    if (
+      !tile ||
+      !tile.text ||
+      tile.teaching ||
+      tile.id === game.shopTileId ||
+      tile.id === 'shop'
+    ) {
+      continue;
+    }
+
+    const review = LRS09_spaceReview(tile.text);
+
+    if (
+      review.problem ||
+      !review.parsed.effects.length
+    ) {
+      continue;
+    }
+
+    const old = Array.isArray(tile.effects)
+      ? tile.effects
+      : [];
+
+    const hasPrevious = old.length > 0;
+
+    const newEffects = parseEffect(
+      tile.text,
+      'actor'
+    );
+
+    if (!newEffects.length) continue;
+
+    const oldHP = old.filter(
+      e => e.type === 'hp'
+    );
+
+    const newHP = newEffects.filter(
+      e => e.type === 'hp'
+    );
+
+    const same =
+      JSON.stringify(oldHP) ===
+      JSON.stringify(newHP);
+
+    const stillMissing =
+      review.parsed.effects.length >
+      oldHP.length;
+
+    if (
+      !tile.manual &&
+      hasPrevious &&
+      same &&
+      !stillMissing
+    ) {
+      continue;
+    }
+
+    if (
+      hasPrevious &&
+      oldHP.length &&
+      !stillMissing &&
+      same
+    ) {
+      continue;
+    }
+
+    tile.effects = newEffects;
+    tile.manual = false;
+
+    repaired++;
+
+    const summary = newHP.map(
+      effect =>
+        (effect.amount > 0 ? '+' : '') +
+        effect.amount +
+        ' HP to ' +
+        effect.target
+    ).join('; ');
+
+    log(
+      'Referee repaired landing effects for ' +
+      tile.name +
+      ': ' +
+      summary
+    );
+  }
+
+  if (repaired) {
+    game.referee =
+      'Repaired ' +
+      repaired +
+      ' existing space(s). Their HP effects now ' +
+      'activate when a player lands on them.';
+
+    store();
+  }
+
+  return repaired;
+}
+
+// Run the repair once when a new or saved game is loaded.
+
+let LRS09_lastRepairedGame = null;
+
+render = function() {
+  if (
+    game &&
+    game !== LRS09_lastRepairedGame
+  ) {
+    LRS09_lastRepairedGame = game;
+    LRS09_repairSavedSpaces();
+  }
+
+  return LRS09_previousRender();
+};
+
+// Add a button for players to manually repair older spaces.
+
+const LRS09_repairButton =
+  document.createElement('button');
+
+LRS09_repairButton.type = 'button';
+
+LRS09_repairButton.textContent =
+  'Repair Existing Spaces';
+
+LRS09_repairButton.title =
+  'Repair landing HP effects in saved spaces ' +
+  'without changing their positions or connections.';
+
+LRS09_repairButton.addEventListener(
+  'click',
+  () => {
+    if (!game) {
+      alert('Start or load a game first.');
+      return;
+    }
+
+    const count = LRS09_repairSavedSpaces();
+
+    render();
+
+    if (count) {
+      alert(
+        'Repaired ' +
+        count +
+        ' space(s). Move onto them to test damage.'
+      );
+    } else {
+      alert(
+        'No repairable spaces found. ' +
+        'They are already working or need manual teaching.'
+      );
+    }
+  }
+);
+
+// Update the existing Preview button to call the improved version.
+
+$('previewBtn').removeEventListener(
+  'click',
+  LRS09_previousPreviewCreation
+);
+
+$('previewBtn').addEventListener(
+  'click',
+  previewCreation
+);
+
+// Display the repair button next to existing invention controls.
+
+$('previewBtn')
+  .parentElement
+  .appendChild(LRS09_repairButton);
+
+// Update displayed version information.
+
+const LRS09_versionBadge =
+  document.querySelector('.top .tag');
+
+if (LRS09_versionBadge) {
+  LRS09_versionBadge.textContent =
+    'LOCAL HOT-SEAT · v0.8.3';
+}
+
+const LRS09_footer =
+  document.querySelector('footer');
+
+if (LRS09_footer) {
+  LRS09_footer.textContent =
+    'Last Rule Standing · v0.8.3 · ' +
+    'Improved offline landing referee · ' +
+    'Original game systems preserved.';
+}
+
 </script>
 </body>
 </html>
