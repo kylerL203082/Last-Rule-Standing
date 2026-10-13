@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Last Rule Standing · v0.8</title>
+<title>Last Rule Standing · v0.8.1</title>
 <style>
 :root{color-scheme:dark;--bg:#0b101c;--panel:#151d2d;--panel2:#1c2638;--edge:#344157;--text:#edf2fc;--muted:#9facbf;--gold:#e6b95f;--blue:#78b7ff;--good:#75d3a1;--bad:#ff828b}*{box-sizing:border-box}body{margin:0;font:15px/1.48 system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at top left,#202f49 0,#0b101c 55%);color:var(--text)}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--edge);border-radius:10px;background:#26364d;color:var(--text);padding:9px 13px}button:hover:not(:disabled){filter:brightness(1.18)}button:disabled{opacity:.4;cursor:not-allowed}.primary{background:linear-gradient(135deg,#af7830,#e0b864);color:#141822;border:0;font-weight:800}.quiet{background:transparent}.danger{color:#ffc0c5;border-color:#81424c}.shell{max-width:1570px;margin:auto;padding:18px}.top{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.crest{display:grid;place-items:center;width:52px;height:52px;border-radius:15px;background:#342d27;color:var(--gold);font-size:29px;border:1px solid #775d36}.brand h1{font-size:22px;letter-spacing:1px;margin:0;text-transform:uppercase}.brand small{display:block;color:var(--muted);font-size:12px;letter-spacing:.6px}.actions,.buttons,.tabs,.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tag{border-radius:99px;padding:3px 10px;font-size:12px;border:1px solid #566078;color:#c3cce0}.layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:15px}.stack{display:grid;gap:15px;align-content:start}.panel{border:1px solid var(--edge);border-radius:16px;background:linear-gradient(150deg,rgba(28,38,56,.98),rgba(17,24,38,.98));box-shadow:0 10px 30px #0002;overflow:hidden}.pad{padding:17px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.panel h2{margin:0;font-size:16px;letter-spacing:.3px}.muted{color:var(--muted)}.small{font-size:12px}.status{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.status strong{color:var(--gold)}.board{height:480px;overflow:auto;background-color:#101827;background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:37px 37px;border:1px solid #30425a;border-radius:12px}.board svg{display:block;min-width:100%}.tile-detail{margin-top:10px;padding:10px 12px;background:#101827;border-radius:10px;min-height:55px;border:1px solid #2d3c52}.movehint{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.tabs button{flex:1;white-space:nowrap}.tabs .selected{color:#182029;background:var(--gold);font-weight:800;border-color:transparent}textarea,input,select{width:100%;border:1px solid #40516a;background:#0d1523;color:var(--text);border-radius:10px;padding:10px;outline:none}textarea:focus,input:focus,select:focus{border-color:var(--blue)}textarea{min-height:100px;resize:vertical}.hint{background:#101929;padding:11px;border-left:3px solid var(--blue);border-radius:7px;font-size:13px;color:#c1cee0;margin:10px 0}.formline{display:grid;gap:7px;margin:11px 0}label{font-size:13px;color:#c4cede;font-weight:600}.player{display:grid;grid-template-columns:12px 1fr auto;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid #ffffff13}.player:last-child{border:0}.dot{width:11px;height:11px;border-radius:50%}.hp{font-weight:800}.dead{opacity:.42;text-decoration:line-through}.mini{font-size:12px;color:var(--muted)}.entry{padding:10px 0;border-bottom:1px solid #ffffff17}.entry:last-child{border:0}.entry strong{font-size:13px}.pill{font-size:11px;padding:2px 7px;background:#263b53;border-radius:6px;color:#bee3ff}.scroll{max-height:280px;overflow:auto}.activity{max-height:250px}.logitem{padding:8px 0;border-bottom:1px solid #ffffff12;font-size:12px;line-height:1.5}.logitem span{color:var(--gold)}.empty{color:var(--muted);font-size:13px;padding:12px;text-align:center}.good{color:var(--good)}.bad{color:var(--bad)}.alert{border:1px solid #a5803f;background:#42351d;padding:10px;border-radius:8px;color:#ffe5b8;font-size:13px;margin-top:10px}.setup{max-width:660px;margin:65px auto 0}.setup .panel{padding:27px}.setup h2{font-size:27px;margin:0 0 8px}.names{display:grid;grid-template-columns:1fr 1fr;gap:10px}.namebox{display:grid;gap:6px}.footer{padding:25px 0;text-align:center;font-size:12px;color:#8c9aaf}.rulemeta{font-size:11px;color:var(--muted);margin-top:5px}.bottomrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.choice{display:flex;gap:6px}.choice select{flex:1;min-width:0}.refbox{background:#101827;border:1px solid #344157;border-radius:10px;padding:11px;margin-bottom:10px}.refbox strong{color:#d6b671}.subtle{border:0;border-top:1px solid #ffffff20;margin:12px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fileline{display:flex;gap:7px}.fileline input{flex:1;min-width:0}.currencyrow{padding:9px 0;border-bottom:1px solid #ffffff16}.currencyrow:last-child{border:0}.currencyname{font-weight:800;color:var(--gold);letter-spacing:.2px}.balances{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.balance{font-size:11px;background:#20324a;border:1px solid #3b5069;padding:3px 7px;border-radius:7px}.playerlocation{color:#d7ecff;font-size:12px;font-weight:700;margin-top:3px}.tokenlegend{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:10px}.tokenbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:#111d30;border:1px solid #40516a;border-radius:8px;padding:4px 7px}.tokenbadge b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:6px;color:#0b1525;font-size:10px}.tokenbadge.current{border-color:var(--gold);box-shadow:0 0 0 1px #e6b95f66}.boardloc{margin-top:9px;color:#dceaff;font-weight:700;font-size:13px}@media(max-width:950px){.layout{grid-template-columns:1fr}.board{height:400px}.shell{padding:12px}}@media(max-width:560px){.brand h1{font-size:17px}.panel .pad{padding:12px}.names{grid-template-columns:1fr}.setup{margin-top:20px}.tabs button{font-size:12px;padding:8px 7px}.board{height:350px}.top .actions{width:100%}}
 
@@ -28,12 +28,13 @@
 </head>
 <body>
 <div class="shell">
-<header class="top"><div class="brand"><div class="crest">♛</div><div><h1>Last Rule Standing</h1><small>CREATE THE RULES · CONTROL THE CHAOS · SURVIVE</small></div></div><div class="actions"><span class="tag">LOCAL HOT-SEAT · v0.8</span><button id="saveBtn">Save</button><button id="loadBtn">Load</button><button id="newBtn" class="quiet">New Game</button></div></header>
+<header class="top"><div class="brand"><div class="crest">♛</div><div><h1>Last Rule Standing</h1><small>CREATE THE RULES · CONTROL THE CHAOS · SURVIVE</small></div></div><div class="actions"><span class="tag">LOCAL HOT-SEAT · v0.8.1</span><button id="saveBtn">Save</button><button id="loadBtn">Load</button><button id="newBtn" class="quiet">New Game</button></div></header>
 <section id="setupView" class="setup"><div class="panel"><h2>Begin a world with no rules.</h2><p class="muted">Everyone starts at the empty Shop with 10 HP. Move first; then invent one space, rule, item, or mechanic. Last survivor wins.</p><div class="formline"><label for="playerCount">Players</label><select id="playerCount"><option value="2">2 players</option><option value="3">3 players</option><option value="4">4 players</option></select></div><div class="names" id="nameFields"></div><div class="bottomrow"><button class="primary" id="startBtn">Create Game</button><button id="resumeBtn" hidden>Resume Saved Game</button></div><p class="small muted">This version plays on one device. Teach the Referee uses structured game actions and works offline. No AI model or API is connected.</p></div></section>
 <div id="gameView" hidden>
 <div class="layout"><main class="stack">
 <section class="panel pad"><div class="panelhead"><h2>World Board</h2><span class="tag" id="roundLabel">Turn 1</span></div><div class="status"><span id="turnLabel"></span><span class="tag" id="phaseLabel"></span></div><div id="board" class="board"><svg id="boardSvg" aria-label="Game board"></svg></div><div id="tokenLegend" class="tokenlegend" aria-label="Player marker legend"></div><div id="boardLocation" class="boardloc" aria-live="polite"></div><div class="tile-detail" id="tileDetail">Select a tile to inspect it. Click a highlighted connected tile to move.</div><div id="entityFocus" class="entityFocus" hidden></div><div class="movehint"><span class="small muted" id="movementHint"></span><button id="finishMoveBtn">Stay Here / Finish Movement</button></div></section>
 <section class="panel pad"><div class="panelhead"><h2>Invent Something</h2><span class="tag" id="createCount">1 action</span></div><div class="tabs"><button class="selected" data-kind="space">Space</button><button data-kind="rule">Rule</button><button data-kind="item">Shop Item</button><button data-kind="connect">Connect Spaces</button><button data-kind="mechanic">Other</button><button data-kind="world">World / Entity</button></div><div class="formline"><label for="creationText" id="creationLabel">Describe your space and where it connects</label><textarea id="creationText" spellcheck="true" placeholder="Create a space called Gain 2 Life to the right of the Shop and connect them. When someone lands on it they gain 2 life."></textarea></div><div class="hint" id="creationHint"></div><div class="buttons"><button class="primary" id="createBtn">Create Space</button><button id="exampleBtn">Insert Example</button><button id="previewBtn" class="quiet">Check Referee Understanding</button><button id="interpretBtn" class="quiet">Interpret My Invention</button><button id="simulateBtn" class="quiet">Test Your Invention</button><button id="teachBtn" class="quiet">Teach Referee</button><button id="endBtn">End Turn</button></div><div id="creationResult" class="alert" hidden></div><div id="previewBox" class="refbox" hidden aria-live="polite"></div>
+<div id="itemAudit" class="v7Panel" hidden aria-live="polite"><div class="panelhead"><h3>Shop Item Verification</h3><span id="itemAuditStatus" class="pill">REVIEW</span></div><pre id="itemAuditReport"></pre><div class="buttons"><button id="itemAnalyzeBtn">Analyze Item</button><button id="itemVerifyBtn">Test Purchase & Use</button><button id="itemTeachBtn">Teach Missing Effects</button></div><pre id="itemVerifyReport"></pre></div>
 <div id="v7Analysis" class="v7Panel" hidden aria-live="polite"><h3>Offline interpretation</h3><pre id="v7AnalysisText"></pre><div class="buttons"><button id="v7EditBtn">Adjust in World Studio</button><button id="v7TeachBtn">Adjust in Teach Referee</button></div></div>
 <div id="v7Simulator" class="v7Panel" hidden aria-live="polite"><h3>Test Your Invention — sandbox only</h3><p class="mini">Choose a simulated actor and event. This uses a copy of the current game; no actions, rules, turns or saves will be committed.</p><div class="two"><div class="formline"><label>Test as player</label><select id="v7Actor"></select></div><div class="formline"><label>Simulate event</label><select id="v7Event"><option value="auto">Suggested event</option><option value="enter">Enter its space</option><option value="interact">Interact with it</option><option value="turn-start">Turn begins</option><option value="death">Entity dies</option><option value="use">Use an item</option><option value="immediate">Create only</option></select></div></div><button id="v7RunBtn" class="primary">Run Simulation</button><pre id="v7SimulationResult">Select Run Simulation to see a sample outcome. The real game is unchanged.</pre></div>
 <div id="teachEditor" class="teachEditor" hidden>
@@ -83,7 +84,7 @@
 <section class="panel pad"><div class="panelhead"><h2>Objects and Entities</h2><span class="pill" id="worldCount">0 active</span></div><div id="worldEntities" class="scroll"></div><hr class="subtle"><div class="formline"><label>Attack creature on your space (once per turn)</label><select id="worldAttack"></select><button id="worldCombatBtn">Attack</button></div><div class="formline"><label>Interact with object on your space</label><select id="worldInteract"></select><button id="worldInteractBtn">Interact</button></div><div class="formline"><label>Equipped items</label><select id="worldEquipment"></select><button id="worldEquipBtn">Equip / Unequip</button></div></section>
 <section class="panel pad"><div class="panelhead"><h2>Event History</h2><span class="pill">RECORDED</span></div><div id="historyList" class="scroll activity"></div></section>
 </aside></div></div>
-<footer class="footer">Last Rule Standing · Version 0.8 · Local-first prototype · All rules and items are created by players.</footer>
+<footer class="footer">Last Rule Standing · Version 0.8.1 · Local-first prototype · All rules and items are created by players.</footer>
 </div>
 <script>
 'use strict';
@@ -230,8 +231,146 @@ function parseItemAction(text){
  if(/\b(?:cancel|erase|disable|destroy|remove|rewrite|deactivate)\b.{0,55}\b(?:rule|law)\b/.test(low))return'disable_rule';
  return null;
 }
+/* v0.8.1: Items compile to ordered, validated operations or remain uncreated. */
+let itemLastAudit=null;
+function itemCleanName(text){
+ const prefix=text.match(/\b(?:called|named)\s+(.+?)(?=\s+(?:for\s+(?:free|\d+)|when|that|which|where|with\s+\d+|only\s+\d+|costs?\s+\d+)\b|[.!?,]|$)/i);
+ if(prefix)return clean(prefix[1]);
+ const m=text.match(/\b(?:create|invent|make|stock|add)\s+(?:a|an|the)?\s*(?:item\s+)?(.+?)(?=\s+(?:for\s+(?:free|\d+)|when|that|which|where|with\s+\d+|only\s+\d+|costs?\s+\d+)\b|[.!?,]|$)/i);
+ return m?clean(m[1]):extractName(text,'item');
+}
+function itemDescribe(text){
+ const t=clean(text),found=refMatch(t,'item'),smart=refSmartClauses(t,'item');
+ const name=itemCleanName(t);
+ const cost=t.match(/\b(?:for|costs?|price(?:d)?\s*(?:at|is)?|priced\s+at)\s*(\d{1,6})\s+([a-z][a-z0-9_-]*)\b/i);
+ const free=/\bfree\b/i.test(t),warnings=[...smart.warnings],actions=smart.actions.map(a=>structuredClone(a));
+ if(!name)warnings.push('Item name not identified; write "called <name>".');
+ if(!free&&!cost)warnings.push('Specify a price, for example "for 3 gold" or "free".');
+ const m=t.match(/\b(?:for|costs?|price(?:d)?\s*(?:at|is)?|priced\s+at)\s*(\d{1,6})\s+([a-z][a-z0-9_-]*)\b/i);
+ const price=free?0:m?+m[1]:null,currency=free?'free':m?.[2]?.toLowerCase()||'';
+ if(price!==null&&price>100000)warnings.push('Maximum price is 100000.');
+ // Split power clauses and cross-check that every effect-bearing phrase was represented.
+ let body=t.replace(/^(?:create|invent|make|stock|add)\s+(?:an?\s+)?(?:item\s+)?(?:called|named)?\s*/i,'');
+ body=body.replace(/\b(?:for|costs?|price(?:d)?\s*(?:at|is)?|priced\s+at)\s*\d{1,6}\s+[a-z][a-z0-9_-]*\b/gi,'');
+ body=body.replace(/\b(?:only|stock of|limited to|quantity of)\s+\d+\s*(?:copies|items?|in stock)?/gi,'');
+ body=body.replace(/\b(?:when used|on use|while carried|reusable|unlimited uses|single use|one use|consumed after use)\b/gi,'');
+ const effects=body.replace(/,\s*(?:and\s+)?(?=(?:it\s+|then\s+|also\s+)?(?:steals?|drains?|deals?|hits?|heals?|restores?|gives?|grants?|gets?|gains?|teleports?|warps?|blinks?|poisons?|protects?|creates?|summons?|removes?|disables?|reflects?|rewinds?|explodes?|blocks?|changes?|sets?|curses?|loses?|damages?|hurts?)\b)/gi,';').replace(/\s+and\s+(?=(?:it\s+|then\s+|also\s+)?(?:steals?|drains?|deals?|heals?|restores?|gives?|gains?|teleports?|warps?|poisons?|creates?|removes?|reflects?|rewinds?|explodes?|blocks?|changes?|damages?|hurts?)\b)/gi,';');
+ const phrases=effects.split(/[.;]/).map(clean).filter(Boolean);
+ const activeVerb=/\b(?:steal|drain|siphon|leech|deal|hit|damage|hurt|heal|restore|regain|give|grant|earn|gain|collect|receive|lose|pay|spend|teleport|warp|blink|poison|curse|immune|protect|remove|destroy|delete|connect|disable|reflect|rewind|explode|spawn|summon|transform|block|double|halve|attack|freeze|resurrect|swap)\w*\b/i;
+ const matchingVerb=/\b(?:steal|drain|siphon|leech|deal|hit|damage|hurt|heal|restore|regain|give|grant|earn|gain|collect|receive|lose|pay|spend|teleport|warp|blink|poison|curse|immune|protect)\w*\b/i;
+ for(const phrase of phrases){
+  const low=phrase.toLowerCase();if(!activeVerb.test(low))continue;
+  const explicitUnsupported=/\b(?:reflect|rewind|explode|spawn|summon|transform|double|halve|freeze|resurrect|swap|blocks?\s+the\s+next|damage\s+reduction|attack\s+range|durability)\b/i.test(low);
+  if(explicitUnsupported)warnings.push('Unsupported ability needs teaching or an engine extension: '+phrase.slice(0,100));
+  else if(!matchingVerb.test(low))warnings.push('Unmapped ability: '+phrase.slice(0,100));
+ }
+ const chanceTeleport=t.match(/\b(\d{1,3})\s*%\s*chance\s+(?:of|to)\s+(?:teleport|teleporting|warp|warping|blink|blinking)\s+(?:me|the owner|the user|myself)?\s*to\s+(?:the\s+)?([a-z][a-z ]{0,28})/i);
+ if(chanceTeleport){
+  const dest=clean(chanceTeleport[2]);const found=dest.match(/^shop(?:\b|$)/i)?tileById(shopLocation()):byName(dest);
+  if(!found)warnings.push('Chance-based teleport destination does not exist: '+dest);
+  else if(!actions.some(a=>a.type==='teleport'&&Number(a.chance??100)<100))actions.push({...defaultTeachAction(),type:'teleport',target:'actor',destination:found.id===shopLocation()?'shop':'specific',destinationId:found.id,chance:Number(chanceTeleport[1])});
+ }
+ const chancePhrases=[...t.matchAll(/\b(\d{1,3})\s*%\s*(?:chance|probability)\b/gi)];
+ if(chancePhrases.length){
+  if(chanceTeleport&&actions.some(a=>a.type==='teleport'&&Number(a.chance??100)<100)){}
+  else if(chancePhrases.length!==1||actions.length===0)warnings.push('Could not associate chance with an executable action.');
+  else{const cm=chancePhrases[0],after=t.slice(cm.index+cm[0].length);let matchedIndex=-1;
+   for(let i=0;i<actions.length;i++){
+    const a=actions[i];if(a.type==='teleport'&&/teleport|warp|blink/i.test(after)){matchedIndex=i;break}
+    if(a.type==='damage'&&/deal|damage|hurt/i.test(after)){matchedIndex=i;break}
+   }
+   if(matchedIndex<0)warnings.push('Choose which action the probability applies to in Teach Referee.');
+   else actions[matchedIndex].chance=Number(cm[1]);
+  }
+ }
+ if(/\b(?:unless|except if|only if|if .* then|while|until)\b/i.test(t))warnings.push('Conditional ability needs a supported condition editor; basic item actions cannot model it.');
+ if(/\b(?:per turn|cooldown|once each turn|every other turn|limited to.*turn)\b/i.test(t))warnings.push('Turn-based cooldown needs explicit support; it is not equivalent to limited uses.');
+ if(/\b(?:blocks? the next|reflects?|rewinds?|summons?|explodes?|spawns?)\b/i.test(t))warnings.push('Complex effects are not automatically executable by the item action library.');
+ if(!actions.length)warnings.push('No complete executable ability found. Use Teach Referee.');
+ if(actions.length>=12&&activeVerb.test(t))warnings.push('Review the 12-action limit for missing effects.');
+ if(/\b(?:steals?|drains?)\s+\d+\s*(?:hp|life|health)\b/i.test(t)&&!actions.some(a=>a.type==='steal_hp'))warnings.push('HP theft was not understood.');
+ if(/\b(?:steal|drain|take)\b/i.test(t)&&/\b(?:gold|coin|gem)\b/i.test(t)&&!actions.some(a=>a.type==='transfer_currency'))warnings.push('Currency theft was not understood.');
+ const legacyAction=parseItemAction(t);const hasLegacyAction=!!legacyAction;
+ if(actions.length===0&&['remove_space','connect_spaces','remove_connection','teleport','disable_rule'].includes(legacyAction)){
+  const mapped={remove_space:{type:'remove_space',tileMode:'selected'},connect_spaces:{type:'connect_spaces',tileMode:'selected',tileMode2:'selected2'},remove_connection:{type:'remove_connection',tileMode:'selected',tileMode2:'selected2'},teleport:{type:'teleport',target:'actor',destination:'selected'},disable_rule:{type:'disable_rule',ruleMode:'selected'}}[legacyAction];
+  actions.push({...defaultTeachAction(),...mapped});
+  for(let j=warnings.length-1;j>=0;j--)if(/Unmapped ability|No complete executable ability/.test(warnings[j]))warnings.splice(j,1);
+ }
+ 
+ if(hasLegacyAction&&!actions.length)warnings.push('This named effect needs target configuration to verify all actions.');
+ const learned=found?.entry?.type==='teaching'?structuredClone(found.entry.payload):null;
+ let proposal=learned&&Array.isArray(learned.actions)?learned:{kind:'item',original:t,trigger:'use',delay:1,uses:/\b(?:reusable|unlimited uses|infinite uses)\b/i.test(t)?0:1,actions};
+ if(learned){warnings.push('Previously learned example found. Check every action before saving; it is not auto-approved.');}
+ if(!/\b(?:reusable|unlimited uses|infinite uses)\b/i.test(t)&&/\b(?:\d+\s+uses?|use\s+\d+\s+times?)\b/i.test(t)){const count=t.match(/\b(\d+)\s+uses?\b/i)||t.match(/\buse\s+(\d+)\s+times?\b/i);if(count)proposal.uses=Math.min(100,Number(count[1]));}
+ if(actions.some(a=>a.type==='damage'&&a.target==='actor')&&!/\b(?:deal damage to myself|deals damage to me|damage me|hurt myself|hurts its owner|damages its owner|i lose \d+ hp)\b/i.test(t)){
+  for(const a of proposal.actions||[])if(a.type==='damage'&&a.target==='actor')a.target='selected';
+ }
+ for(const a of proposal.actions||[]){if(a.type==='steal_hp'&&a.target==='actor'&&/\b(?:another player|opponent|enemy|target|whoever i attack)\b/i.test(t))a.target='selected';}
+ const uniq=[...new Set(warnings)];return{name,price,currency,actions,proposal,warnings:uniq,complete:uniq.length===0&&actions.length>0};
+}
+function itemAuditDisplay(){
+ const box=$('itemAudit');if(!game||creationKind!=='item'||game.phase!=='create'){box.hidden=true;return}
+ const description=clean($('creationText').value);if(!description){box.hidden=true;return}
+ box.hidden=false;const report=itemDescribe(description);itemLastAudit={text:description,...report};
+ const teaching=pendingTeaching?.kind==='item'&&pendingTeaching.text===description?pendingTeaching.teaching:null;
+ const validTeaching=teaching&&!validateTeaching(teaching);const needed=report.warnings;
+ $('itemAuditStatus').textContent=validTeaching?'TAUGHT · REVIEW':report.complete?'PARSED · TEST NEXT':'NEEDS TEACHING';
+ $('itemAuditReport').textContent='Item: '+(report.name||'[missing]')+' | Price: '+(report.price===null?'[missing]':report.price+' '+report.currency)+'\nRecognized ordered effects:\n'+(report.actions.length?report.actions.map((a,i)=>`${i+1}. ${describeTaughtAction(a)}`).join('\n'):'None')+'\n\n'+(needed.length?'Check or teach:\n• '+needed.join('\n• '):'All detected effects mapped. Test and review before stocking.')+(validTeaching?'\nSaved teaching: '+summarizeTeaching(teaching):'');
+}
+function itemDryRun(text,plan){
+ // A separate, synthetic sandbox permits validation without changing inventory, save, or the real board.
+ const real=game,realFocus=focusPlayerOnNextRender,realSelected=selectedTile,oldProcessing=processing;
+ try{
+  const invalid=validateTeaching(plan);if(invalid)throw Error(invalid);
+  game=structuredClone(real);game.phase='create';
+  const actor=player(),opponent=game.players.find(p=>p.id!==actor.id&&p.hp>0);
+  const scratch=id('sandbox_tile');game.tiles.push({id:scratch,name:'Test Tile (sandbox only)',x:999,y:999,owner:null,turn:game.turn,text:'',effects:[],manual:false});
+  // Add a representative active rule only when a taught operation needs one.
+  if(plan.actions.some(a=>a.type==='disable_rule'&&a.ruleMode==='selected')&&!game.rules.some(r=>r.active))game.rules.push({id:id('rule'),active:true,owner:actor.id,text:'Test rule (sandbox only)',parsed:{type:'manual'}});
+  if(plan.actions.some(a=>a.type==='remove_connection')&&!connected(scratch,shopLocation()))game.edges.push([scratch,shopLocation()]);
+  const made=createItem(text,plan);if(made!==true)throw Error(made);
+  const item=game.shop.at(-1);if(!item)throw Error('Item was not created');
+  if(item.currency==='health'){if(actor.hp<=item.price)actor.hp=item.price+1;adjustHP(actor,-item.price,'simulated payment',{bypass:true})}
+  else if(item.currency!=='free'){actor.resources[item.currency]=item.price;resource(actor,item.currency,-item.price,'simulated payment')}
+  actor.inventory.push({uid:id('testOwned'),itemId:item.id,usesLeft:item.usesPerCopy});
+  const sample=structuredClone(plan);for(const a of sample.actions)a.chance=100;
+  const result=executeTeaching(sample,{actor:actor.id,owner:item.owner,choices:{playerId:opponent?.id||'',tileId:scratch,tileId2:shopLocation(),ruleId:game.rules.find(r=>r.active)?.id||''}});
+  if(!result.ok)throw Error(result.error);
+  return{ok:true,message:'Purchase and all '+sample.actions.length+' ordered actions passed a forced-activation sample. Chance percentages, cooldowns, and future conditions were not exhaustively tested.'};
+ }catch(e){return{ok:false,message:String(e?.message||e)}}
+ finally{game=real;focusPlayerOnNextRender=realFocus;selectedTile=realSelected;processing=oldProcessing}
+}
+function itemVerification(){
+ if(!game||creationKind!=='item'||game.phase!=='create')return;
+ itemAuditDisplay();const txt=clean($('creationText').value),result=$('itemVerifyReport'),audit=itemDescribe(txt);
+ const teaching=pendingTeaching?.text===txt&&pendingTeaching.kind==='item'?structuredClone(pendingTeaching.teaching):audit.complete?structuredClone(audit.proposal):null;
+ if(teaching){const preflight=itemDryRun(txt,teaching);if(!preflight.ok){result.textContent='SANDBOX BLOCKED: '+preflight.message;return}}
+ if(!teaching){result.textContent='Not executable yet. Open Teach Referee and resolve the unrecognized effects.';return}
+ const real=game,focus=focusPlayerOnNextRender,selected=selectedTile,oldProcessing=processing,oldTarget=targetUse;
+ try{
+  const validation=validateTeaching(teaching);if(validation)throw Error(validation);
+  game=structuredClone(real);game.phase='create';const who=player();
+  const created=createItem(txt,teaching);if(created!==true)throw Error(String(created));
+  const it=game.shop.at(-1);if(!it)throw Error('No item was created.');
+  if(it.currency!=='free'&&it.currency!=='health')who.resources[it.currency]=Math.max(who.resources[it.currency]||0,it.price);
+  if(it.currency==='health'&&who.hp<=it.price)who.hp=it.price+1;
+  who.position=shopLocation();const startingHP=who.hp;
+  const startingGold=structuredClone(who.resources);const prePayment=it.currency==='health'?who.hp:(it.currency==='free'?0:who.resources[it.currency]||0);
+  if(it.currency==='health')adjustHP(who,-it.price,'simulated shop purchase',{bypass:true});
+  else if(it.currency!=='free')resource(who,it.currency,-it.price,'simulated shop purchase');
+  const paid=it.currency==='health'?prePayment-who.hp:(it.currency==='free'?0:prePayment-(who.resources[it.currency]||0));
+  const fakeUid=id('audit');who.inventory.push({uid:fakeUid,itemId:it.id,usesLeft:teaching.uses??1});
+  const other=game.players.find(p=>p.id!==who.id&&p.hp>0);
+  const ctx={actor:who.id,owner:it.owner,choices:{playerId:other?.id||'',tileId:game.tiles.length>1?game.tiles[1].id:shopLocation(),tileId2:shopLocation(),ruleId:game.rules.find(r=>r.active)?.id||''}};
+  const outcome=executeTeaching(teaching,ctx);if(!outcome.ok)throw Error(outcome.error);
+  const hpChange=who.hp-startingHP,currencies=Object.keys(who.resources).filter(k=>who.resources[k]!==startingGold[k]).map(k=>k+': '+(startingGold[k]||0)+' → '+who.resources[k]);
+  const trace=game.history.slice(0,8).map(e=>e.text);
+  result.textContent='SANDBOX EXECUTION SUCCESS (sample targets):\n• Purchase payment: '+paid+' '+it.currency+'\n• Effects: '+teaching.actions.length+' actions checked\n• HP change: '+hpChange+'\n• '+(currencies.join('\n• ')||'No currency changes')+'\n• '+trace.join('\n• ')+'\nNo real purchases, turns, HP or saved data changed. Conditional and chance effects need additional scenarios.';
+ }catch(e){result.textContent='SANDBOX COULD NOT VERIFY: '+(e.message||e)+'\nItem remains unsaved. Try another valid target or correct it through Teach Referee.'}
+ finally{game=real;focusPlayerOnNextRender=focus;selectedTile=selected;targetUse=oldTarget;processing=oldProcessing;}
+}
 function createItem(text,teaching=null){
- const name=extractName(text,'item');if(!name)return'Name the item, e.g. "Create an item called The Remover for 3 gold that removes any space."';
+ const name=itemCleanName(text);if(!name)return'Name the item, e.g. "Create an item called The Remover for 3 gold that removes any space."';
  const free=/\bfree\b/i.test(text),m=text.match(/\b(?:for|costs?|price(?:d)?\s*(?:at|is)?|priced\s+at)\s*(\d{1,6})\s+([a-z][a-z0-9_-]*)\b/i);
  if(!free&&!m)return'Specify a price like "for 3 gold", "for 2 health", or "free".';
  let price=0,currency='free';if(m&&!free){price=+m[1];currency=m[2].toLowerCase();if(['hp','life','lives'].includes(currency))currency='health';if(price>100000)return'That price exceeds the local limit.'}
@@ -254,9 +393,14 @@ function creation(){
  if(teachDraft&&!pendingTeaching){notice('Finish or cancel the open teaching first.');return}
  const teaching=pendingTeaching&&pendingTeaching.text===txt&&pendingTeaching.kind===creationKind?structuredClone(pendingTeaching.teaching):null;
  if(pendingTeaching&&!teaching){notice('Your description or creation type changed after teaching. Teach it again or cancel the teaching.');return}
+ if(creationKind==='item'){const audit=itemDescribe(txt);if(teaching&&audit.warnings.length)notice('Original language contains unsupported details; your approved teaching defines the final executable meaning.',false);if(!teaching&&!audit.complete){itemAuditDisplay();notice('Item not stocked. Resolve all unrecognized abilities through Teach Referee first.');return}if(teaching){const invalid=validateTeaching(teaching);if(invalid){notice(invalid);return}}}
+ const itemPlan=creationKind==='item'?(teaching||itemDescribe(txt).proposal):null;
+ if(itemPlan&&creationKind==='item'){const error=validateTeaching(itemPlan);if(error){notice('Item action plan needs review: '+error);return}}
+ if(itemPlan&&creationKind==='item'){const test=itemDryRun(txt,itemPlan);if(!test.ok){itemAuditDisplay();$('itemVerifyReport').textContent='Automatic preflight failed: '+test.message;notice('Item not stocked: could not verify its action plan. Open Teach Referee.');return}}
  const backup=structuredClone(game);
- const result=creationKind==='space'?createSpace(txt,teaching):creationKind==='item'?createItem(txt,teaching):creationKind==='connect'?createConnection(txt):createRule(txt,creationKind==='mechanic'?'mechanic':'rule',teaching);
+ const result=creationKind==='space'?createSpace(txt,teaching):creationKind==='item'?createItem(txt,itemPlan):creationKind==='connect'?createConnection(txt):createRule(txt,creationKind==='mechanic'?'mechanic':'rule',teaching);
  if(result!==true){game=backup;notice(result);render();return}
+ if(itemPlan&&creationKind==='item'&&!pendingTeaching)log('Shop plan accepted: '+itemPlan.actions.length+' ordered actions.');
  if(teaching&&pendingTeaching?.remember)refStoreExample('teaching',pendingTeaching.kind,txt,pendingTeaching.alias,teaching);game.phase='ready';connectionSelection=[];pendingTeaching=null;teachDraft=null;
  $('teachEditor').hidden=true;$('creationText').value='';$('previewBox').hidden=true;
  notice('Creation accepted. End your turn when ready.',false);outcome();commit();
@@ -397,18 +541,20 @@ function render(){if(!game)return;initWorld();$('setupView').hidden=true;$('game
  const ps=$('playersList');ps.replaceChildren();$('aliveLabel').textContent=alive().length+' alive';for(const q of game.players){const row=node('div','player',undefined,ps);const dot=node('span','dot',undefined,row);dot.style.background=q.color;const info=node('div','',undefined,row);const pname=node('strong',q.hp<=0?'dead':'',q.name+(q.id===p.id?' ◀':''),info);pname.title='Inspect this player';pname.style.cursor='pointer';pname.addEventListener('click',()=>{dashboardPlayerId=q.id;renderDashboard()});node('div','playerlocation','📍 '+(tileById(q.position)?.name||'?'),info);const currencies=currencyNames();node('div','mini',currencies.length?currencies.map(k=>(q.resources[k]||0)+' '+k).join(' · '):'No currency created',info);node('div','hp'+(q.hp<=0?' dead':''),q.hp+' HP',row)}
  const cr=$('currencyList');cr.replaceChildren();const currencies=currencyNames();$('currencyCount').textContent=currencies.length+' created';if(!currencies.length)node('div','empty','None yet. Create a currency called Gold, or give someone Gold through a rule.',cr);for(const cur of currencies){const row=node('div','currencyrow',undefined,cr);node('div','currencyname','🪙 '+cur.charAt(0).toUpperCase()+cur.slice(1),row);const balances=node('div','balances',undefined,row);for(const q of game.players)node('span','balance',q.name+': '+(q.resources[cur]||0),balances)}
  const il=$('inventoryList');il.replaceChildren();if(!p.inventory.length)node('div','empty','No items owned.',il);for(const owned of p.inventory){const it=game.shop.find(i=>i.id===owned.itemId);if(!it)continue;const row=node('div','entry',undefined,il);node('strong','',it.name,row);if(it.teaching)node('div','taughtSummary',summarizeTeaching(it.teaching)+' · Uses remaining: '+(owned.usesLeft===0?'∞':owned.usesLeft),row);node('div','mini',it.manual?'Manual effect':it.description+(it.reusable?' · Reusable':''),row);const btn=node('button','',it.manual?'Request Ruling':it.action?'Select Target':'Use Item',row);btn.disabled=!['create','ready'].includes(game.phase);btn.addEventListener('click',()=>useItem(owned.uid))}
- const sl=$('shopList');sl.replaceChildren();$('shopCount').textContent=game.shop.length+' items';if(!game.shop.length)node('div','empty','Empty! Invent an item instead of a space.',sl);for(const it of game.shop){const row=node('div','entry',undefined,sl);node('strong','',it.name,row);node('div','mini',it.description,row);node('div','rulemeta','Creator: '+(getPlayer(it.owner)?.name||'Unknown')+' · turn '+it.turn,row);if(it.teaching)node('div','taughtSummary',summarizeTeaching(it.teaching),row);node('div','mini','Price: '+(it.currency==='free'?'Free':it.price+' '+it.currency)+' · Stock: '+(it.stock===null?'Unlimited':it.stock),row);const btn=node('button','', 'Buy',row);btn.disabled=!['create','ready'].includes(game.phase)||p.position!==shopLocation()||it.stock===0;btn.addEventListener('click',()=>buy(it.id))}
+ const sl=$('shopList');sl.replaceChildren();$('shopCount').textContent=game.shop.length+' items';if(!game.shop.length)node('div','empty','Empty! Invent an item instead of a space.',sl);for(const it of game.shop){const row=node('div','entry',undefined,sl);node('strong','',it.name,row);node('div','mini',it.description,row);node('div','rulemeta','Creator: '+(getPlayer(it.owner)?.name||'Unknown')+' · turn '+it.turn,row);if(it.teaching)node('div','taughtSummary',summarizeTeaching(it.teaching),row);node('div','mini',it.teaching?'Executable plan · '+it.teaching.actions.length+' steps':it.manual?'Manual adjudication required':'Legacy effect — inspect before use',row);node('div','mini','Price: '+(it.currency==='free'?'Free':it.price+' '+it.currency)+' · Stock: '+(it.stock===null?'Unlimited':it.stock),row);const btn=node('button','', 'Buy',row);btn.disabled=!['create','ready'].includes(game.phase)||p.position!==shopLocation()||it.stock===0;btn.addEventListener('click',()=>buy(it.id))}
  const rs=$('rulesList');rs.replaceChildren();$('rulesCount').textContent=game.rules.length+' rules';if(!game.rules.length)node('div','empty','No rules invented yet.',rs);for(const r of [...game.rules].reverse()){const row=node('div','entry',undefined,rs);node('strong','',r.text,row);node('div','rulemeta',getPlayer(r.owner)?.name+' · turn '+r.turn+' · '+(r.active?'ACTIVE':'INACTIVE')+' · '+(r.teaching?'TAUGHT':r.parsed.type==='manual'?'MANUAL':r.parsed.trigger),row);if(r.teaching)node('div','taughtSummary',summarizeTeaching(r.teaching),row)}
  const hs=$('historyList');hs.replaceChildren();for(const ev of game.history){const row=node('div','logitem',undefined,hs);node('span','', 'T'+ev.turn+' · ',row);row.append(document.createTextNode(ev.text))}
  const sel=$('manualTarget'),old=sel.value;sel.replaceChildren();for(const q of game.players){const op=node('option','',q.name,sel);op.value=q.id}sel.value=game.players.some(q=>q.id===old)?old:p.id;
 }
 const examples={connect:'Connect Shop to Castle.',space:'Create a space called Gain 2 Life to the right of the Shop and connect them. When you land on it you gain 2 life.',rule:'Every player loses 1 HP at the beginning of their turn.',item:'Create a Health Potion for 3 gold that restores 4 HP when used. Only 3 copies.',mechanic:'Create a currency called Gold. Every player gets 5 gold every round.',world:'Create a dragon called Firestorm with 15 HP on the Shop. It attacks anyone entering its space for 3 damage. If someone kills it they receive 10 Gold.'};
 const labels={connect:'Connect two existing spaces by names or by clicking them',space:'Describe your new space, location, connection, and effect',rule:'Write a global, recurring, delayed, or rule-changing instruction',item:'Describe the shop item, its ability, price, and optional stock',mechanic:'Invent an object, currency, dimension, monster, or unusual mechanic.',world:'Create a persistent entity. Edit attributes, triggers, conditions and actions in the World Studio. Use Interpret Description as an optional starting point.'};
-function switchKind(kind){creationKind=kind;if(kind==='world'&&game&&game.phase==='create'){if(!worldDraft)worldDraft=refWorldDraft(clean($('creationText').value));renderWorldEditor()}else $('worldEditor').hidden=true;connectionSelection=[];document.querySelectorAll('[data-kind]').forEach(b=>b.classList.toggle('selected',b.dataset.kind===kind));$('creationLabel').textContent=labels[kind];
+ function switchKind(kind){creationKind=kind;if(kind==='world'&&game&&game.phase==='create'){if(!worldDraft)worldDraft=refWorldDraft(clean($('creationText').value));renderWorldEditor()}else $('worldEditor').hidden=true;connectionSelection=[];document.querySelectorAll('[data-kind]').forEach(b=>b.classList.toggle('selected',b.dataset.kind===kind));$('creationLabel').textContent=labels[kind];
+ $('itemAudit').hidden=kind!=='item';if(kind==='item'&&game?.phase==='create')itemAuditDisplay();
  const hints={space:'Every new space MUST connect. Example: Create a space called Lose 3 Life above the Shop and connect them. Anyone landing on it loses 3 HP.',connect:'One creation action draws ONE new connection. Type "Connect Shop to Castle", or click both spaces on the board.',rule:'Recognizes HP, multiple health/resource effects, currencies, movement, immunity, delayed and repeating events. Unrecognized ideas go to manual referee.',item:'Example: Create an item called The Remover for 3 gold. It lets you remove any space. Or create a reusable Teleporter for free that teleports you to any space.',mechanic:'Invent currencies or global mechanics. Unrecognized behavior is saved for manual ruling.',world:'Create a creature, object, trap, spell, weapon or custom entity with conditions and behavior.'};
  $('creationHint').textContent=hints[kind];$('createBtn').textContent={space:'Create Space',connect:'Create Connection',rule:'Create Rule',item:'Create Shop Item',mechanic:'Create Mechanic',world:'Create World Entity'}[kind];if(game)render();}
 
 function previewCreation(){
+ if(creationKind==='item'){itemAuditDisplay();return;}
  if(creationKind==='world'){previewWorld();return}const text=clean($('creationText').value),panel=$('previewBox');panel.hidden=false;
  if(!text){panel.textContent='Write a description before requesting a preview.';return}
  const effects=parseEffect(text,creationKind==='rule'||creationKind==='mechanic'?'owner':'actor'),action=creationKind==='item'?parseItemAction(text):null;
@@ -430,8 +576,9 @@ const TEACH_ACTIONS={damage:'Deal damage',heal:'Restore HP',steal_hp:'Steal HP �
 const PERSON_TARGETS={actor:'Current/triggering player',owner:'Creator/owner',selected:'Selected opponent (choose on use)',specific:'Specific player',all:'Every living player',others:'All living opponents'};
 const PERSON_ACTIONS=new Set(['damage','heal','steal_hp','give_currency','remove_currency','transfer_currency','set_hp','teleport','immunity','status']);
 const SPACE_ACTIONS=new Set(['remove_space','connect_spaces','remove_connection']);
-function defaultTeachAction(){return{type:'damage',target:'actor',amount:1,currency:'gold',duration:2,status:'poison',tileMode:'selected',tileId:'',tileMode2:'selected2',tileId2:'',destination:'shop',destinationId:'',ruleMode:'selected',ruleId:'',playerId:''}}
+function defaultTeachAction(){return{chance:100,type:'damage',target:'actor',amount:1,currency:'gold',duration:2,status:'poison',tileMode:'selected',tileId:'',tileMode2:'selected2',tileId2:'',destination:'shop',destinationId:'',ruleMode:'selected',ruleId:'',playerId:''}}
 function openTeach(){
+ if(creationKind==='item'&&game?.phase==='create'&&clean($('creationText').value)){const d=itemDescribe(clean($('creationText').value)); if(!pendingTeaching||pendingTeaching.text!==clean($('creationText').value)){pendingTeaching=null;}}
  if(creationKind==='world'){if(!worldDraft)worldDraft=refWorldDraft(clean($('creationText').value));renderWorldEditor();return}
  if(!game||game.phase!=='create'||creationKind==='connect'){notice('Teach Referee is available for spaces, items, rules, and mechanics during creation.');return}
  const description=clean($('creationText').value);if(!description){notice('Write the invention first, then open Teach Referee.');return}
@@ -444,7 +591,7 @@ function openTeach(){
  const learnedTeaching=learned?.entry?.payload;
  const proposed=learnedTeaching&&Array.isArray(learnedTeaching.actions)?structuredClone(learnedTeaching):null;
  if(proposed&&learned?.reason==='keyword'&&proposed.actions.length===1&&proposed.actions[0].type==='steal_hp'){const n=description.match(/\b(?:lifesteal|life steal|drain(?:s)?)\s+(\d{1,5})\b/i);if(n&&+n[1]<=10000)proposed.actions[0].amount=+n[1];}
- teachDraft=existing?structuredClone(existing.teaching):proposed||{kind:creationKind,original:description,trigger:smart.trigger||allowedTrigger,delay:1,uses:1,actions:smart.actions.length?smart.actions:initial.length?initial:[defaultTeachAction()]};
+ teachDraft=existing?structuredClone(existing.teaching):proposed||{kind:creationKind,original:description,trigger:smart.trigger||allowedTrigger,delay:1,uses:1,actions:creationKind==='item'&&itemDescribe(description).actions.length?itemDescribe(description).proposal.actions:smart.actions.length?smart.actions:initial.length?initial:[defaultTeachAction()]};
  teachDraft.kind=creationKind;teachDraft.original=description;
  if(creationKind==='item')teachDraft.trigger='use';if(creationKind==='space')teachDraft.trigger='land';
  $('refRememberCheck').checked=existing?existing.remember:true;
@@ -454,7 +601,7 @@ function openTeach(){
  else if(smart.warnings.length)notice('Some details need teaching: '+smart.warnings.join(' '),false);
  $('teachEditor').scrollIntoView({block:'nearest',behavior:'smooth'});
 }
- function teachField(container,label,values,value,onChange){
+function teachField(container,label,values,value,onChange){
  const wrap=node('div','formline',undefined,container);node('label','',label,wrap);const select=node('select','',undefined,wrap);
  for(const [val,name] of Object.entries(values)){const opt=node('option','',name,select);opt.value=val}select.value=value;select.addEventListener('change',e=>onChange(e.target.value));return select;
 }
@@ -477,6 +624,7 @@ function renderTeachEditor(){
   for(const [label,step] of [['↑',-1],['↓',1]]){const b=node('button','',label,buttons);b.disabled=i+step<0||i+step>=draft.actions.length;b.addEventListener('click',()=>{[draft.actions[i],draft.actions[i+step]]=[draft.actions[i+step],draft.actions[i]];renderTeachEditor()})}
   const del=node('button','danger','Remove',buttons);del.disabled=draft.actions.length===1;del.addEventListener('click',()=>{draft.actions.splice(i,1);renderTeachEditor()});
   const grid=node('div','teachActionGrid',undefined,row);
+  if(draft.kind==='item')teachNumber(grid,'Activation chance (%)',a.chance??100,v=>a.chance=+v,100);
   teachField(grid,'Action',TEACH_ACTIONS,a.type,v=>{a.type=v;renderTeachEditor()});
   if(PERSON_ACTIONS.has(a.type)){
    teachField(grid,'Apply to',PERSON_TARGETS,a.target,v=>{a.target=v;renderTeachEditor()});
@@ -513,6 +661,7 @@ function validateTeaching(draft){
   if(['damage','heal','steal_hp','give_currency','remove_currency','transfer_currency','set_hp'].includes(a.type)&&(!Number.isInteger(+a.amount)||a.amount<0||a.amount>10000))return where+'amount must be a whole number from 0–10,000.';
   if(['give_currency','remove_currency','transfer_currency'].includes(a.type)&&!/^([a-z][a-z0-9_-]{0,24})$/i.test(a.currency||''))return where+'enter a currency name (letters, numbers, underscores).';
   if(['immunity','status'].includes(a.type)&&(!Number.isInteger(+a.duration)||a.duration<1||a.duration>1000))return where+'duration must be 1–1,000 player turns.';
+  if(!Number.isInteger(Number(a.chance??100))||Number(a.chance??100)<0||Number(a.chance??100)>100)return where+'chance must be from 0 to 100 percent.';
   if(a.type==='status'&&!['poison','regeneration','shield','curse','custom'].includes(a.status))return where+'choose a supported status.';
   if(a.type==='teleport'){
    if(!['shop','selected','specific'].includes(a.destination))return where+'invalid destination.';
@@ -533,7 +682,7 @@ function validateTeaching(draft){
  }
  return null;
 }
-function describeTaughtAction(a){const kind=TEACH_ACTIONS[a.type]||a.type;let detail=PERSON_ACTIONS.has(a.type)?' → '+(PERSON_TARGETS[a.target]||a.target):'';if('amount'in a&&!['teleport','status','immunity'].includes(a.type)&&!SPACE_ACTIONS.has(a.type))detail+=' ('+a.amount+(a.currency?' '+a.currency:'')+')';if(a.type==='teleport')detail+=' → '+a.destination;if(a.type==='status')detail+=' '+a.status+' '+a.duration+' turns';if(a.type==='immunity')detail+=' '+a.duration+' turns';return kind+detail}
+function describeTaughtAction(a){const kind=TEACH_ACTIONS[a.type]||a.type;let detail=PERSON_ACTIONS.has(a.type)?' → '+(PERSON_TARGETS[a.target]||a.target):'';if('amount'in a&&!['teleport','status','immunity'].includes(a.type)&&!SPACE_ACTIONS.has(a.type))detail+=' ('+a.amount+(['give_currency','remove_currency','transfer_currency'].includes(a.type)&&a.currency?' '+a.currency:'')+')';if(a.type==='teleport')detail+=' → '+a.destination;if(Number(a.chance??100)<100)detail+=' · '+a.chance+'% chance';if(a.type==='status')detail+=' '+a.status+' '+a.duration+' turns';if(a.type==='immunity')detail+=' '+a.duration+' turns';return kind+detail}
 function summarizeTeaching(t){return TEACH_TRIGGERS[t.trigger]+' | '+t.actions.length+' action(s): '+t.actions.map((a,i)=>`${i+1}. ${describeTaughtAction(a)}`).join(' → ')}
 function previewTeaching(){if(!teachDraft)return;const error=validateTeaching(teachDraft),box=$('teachError');box.hidden=!error;if(error){box.textContent=error;return}const out=$('previewBox');out.hidden=false;out.style.whiteSpace='pre-wrap';out.textContent='TEACHING PREVIEW (not yet committed)\n'+summarizeTeaching(teachDraft)+'\n'+teachDraft.actions.map((a,i)=>`${i+1}: ${describeTaughtAction(a)}`).join('\n')+'\nNo actions are executed until the creation is finalized.';box.hidden=true}
 function saveTeaching(){if(!teachDraft)return;const error=validateTeaching(teachDraft),box=$('teachError');if(error){box.textContent=error;box.hidden=false;return}pendingTeaching={kind:creationKind,text:clean($('creationText').value),teaching:structuredClone(teachDraft),remember:$('refRememberCheck').checked,alias:clean($('refCue').value)};teachDraft=null;$('teachEditor').hidden=true;box.hidden=true;previewCreation();notice('Teaching saved for this creation. Click Create to finalize it. No creation action was spent yet.',false)}
@@ -549,6 +698,7 @@ function executeTeaching(teaching,context){
   if(!getPlayer(ctx.actor))throw Error('Triggering player is missing.');
   for(const a of teaching.actions){
    if(!Object.hasOwn(TEACH_ACTIONS,a.type))throw Error('Unsupported operation.');
+   if(Number(a.chance??100)<100&&Math.random()*100>=Number(a.chance??100)){log('Chance roll skipped '+a.type+' ('+Number(a.chance)+'%).');continue}
    let amount=Number(a.amount);if(!Number.isFinite(amount)||amount<0||amount>10000)amount=0;
    const players=PERSON_ACTIONS.has(a.type)?resolvePeople(a,ctx):[];
    if(a.type==='damage'||a.type==='heal'||a.type==='set_hp')for(const p of players){if(a.type==='set_hp')adjustHP(p,amount-p.hp,'taught set HP',{bypass:true});else adjustHP(p,a.type==='damage'?-amount:amount,'taught '+a.type)}
@@ -796,7 +946,10 @@ function v7Simulate(){if(!game||game.phase!=='create')return;const text=clean($(
    }
   }else{
    const teach=pendingTeaching&&pendingTeaching.text===text&&pendingTeaching.kind===creationKind?structuredClone(pendingTeaching.teaching):null;
-   const done=kind==='space'?createSpace(text,teach):kind==='item'?createItem(text,teach):kind==='connect'?createConnection(text):createRule(text,'rule',teach);
+   const checked=kind==='item'?itemDescribe(text):null;
+   if(checked&&!teach&&!checked.complete)throw Error('Incomplete shop item: '+checked.warnings.join('; '));
+   const plan=kind==='item'?(teach||checked.proposal):teach;
+   const done=kind==='space'?createSpace(text,teach):kind==='item'?createItem(text,plan):kind==='connect'?createConnection(text):createRule(text,'rule',teach);
    if(done!==true)throw Error(done);
    if(kind==='item'){
     const it=game.shop.at(-1);if(event==='auto'||event==='use'){
@@ -817,6 +970,7 @@ $('playerCount').addEventListener('change',setupNames);$('startBtn').addEventLis
 $('newBtn').addEventListener('click',()=>{if(game&&!confirm('Start a new game? Your current game can still be loaded from the last local save, unless you overwrite it.'))return;game=null;worldDraft=null;targetUse=null;connectionSelection=[];teachDraft=null;pendingTeaching=null;$('teachEditor').hidden=true;$('gameView').hidden=true;$('setupView').hidden=false});
 $('finishMoveBtn').addEventListener('click',finishMove);$('createBtn').addEventListener('click',creation);$('endBtn').addEventListener('click',()=>{if(game?.phase==='ready')nextTurn()});$('previewBtn').addEventListener('click',previewCreation);$('teachBtn').addEventListener('click',openTeach);$('teachAddBtn').addEventListener('click',()=>{if(teachDraft&&teachDraft.actions.length<12){teachDraft.actions.push(defaultTeachAction());renderTeachEditor()}});$('teachTrigger').addEventListener('change',v=>{if(teachDraft){teachDraft.trigger=v.target.value;renderTeachEditor()}});$('teachDelay').addEventListener('input',e=>{if(teachDraft)teachDraft.delay=+e.target.value});$('teachUses').addEventListener('input',e=>{if(teachDraft)teachDraft.uses=+e.target.value});$('teachPreviewBtn').addEventListener('click',previewTeaching);$('teachSaveBtn').addEventListener('click',saveTeaching);$('teachCancelBtn').addEventListener('click',()=>{teachDraft=null;pendingTeaching=null;$('teachEditor').hidden=true;$('previewBox').hidden=true});$('exampleBtn').addEventListener('click',()=>{$('creationText').value=examples[creationKind];$('creationText').focus()});$('manualBtn').addEventListener('click',manual);$('targetConfirmBtn').addEventListener('click',confirmTarget);$('targetCancelBtn').addEventListener('click',cancelTarget);$('clearConnectionsBtn').addEventListener('click',()=>{connectionSelection=[];render()});document.querySelectorAll('[data-kind]').forEach(b=>b.addEventListener('click',()=>switchKind(b.dataset.kind)));
 $('worldCombatBtn').addEventListener('click',worldCombat);$('worldInteractBtn').addEventListener('click',worldInteract);$('worldEquipBtn').addEventListener('click',worldItemAction);$('worldAddBehaviorBtn').addEventListener('click',()=>{if(worldDraft&&worldDraft.behaviors.length<12){worldDraft.behaviors.push(newBehavior());renderWorldEditor()}});$('worldReadBtn').addEventListener('click',worldAutofill);$('worldPreviewBtn').addEventListener('click',previewWorld);$('worldCancelBtn').addEventListener('click',()=>{worldDraft=null;$('worldEditor').hidden=true});
+$('itemAnalyzeBtn').addEventListener('click',itemAuditDisplay);$('itemVerifyBtn').addEventListener('click',itemVerification);$('itemTeachBtn').addEventListener('click',openTeach);$('creationText').addEventListener('input',()=>{if(creationKind==='item')itemAuditDisplay()});
 $('refMemoryClear').addEventListener('click',()=>{if(!confirm('Remove all locally remembered referee examples?'))return;refLibrary=[];refWriteMemory();refMemoryList()});$('interpretBtn').addEventListener('click',v7Interpret);$('simulateBtn').addEventListener('click',v7OpenSimulator);$('v7RunBtn').addEventListener('click',v7Simulate);$('v7EditBtn').addEventListener('click',v7OpenWorld);$('v7TeachBtn').addEventListener('click',()=>{if(creationKind==='world'){notice('For world creations, edit the World Studio behaviors and conditions.',false);v7OpenWorld()}else openTeach()});$('dashboardPlayer').addEventListener('change',e=>{dashboardPlayerId=e.target.value;renderDashboard()});document.querySelectorAll('#dashboardTabs [data-dash]').forEach(b=>b.addEventListener('click',()=>{dashboardTab=b.dataset.dash;renderDashboard()}));setupNames();switchKind('space');$('resumeBtn').hidden=!readSave();
 </script>
 </body>
