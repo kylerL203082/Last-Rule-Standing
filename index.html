@@ -1072,6 +1072,197 @@ $('finishMoveBtn').addEventListener('click',finishMove);$('createBtn').addEventL
 $('worldCombatBtn').addEventListener('click',worldCombat);$('worldInteractBtn').addEventListener('click',worldInteract);$('worldEquipBtn').addEventListener('click',worldItemAction);$('worldAddBehaviorBtn').addEventListener('click',()=>{if(worldDraft&&worldDraft.behaviors.length<12){worldDraft.behaviors.push(newBehavior());renderWorldEditor()}});$('worldReadBtn').addEventListener('click',worldAutofill);$('worldPreviewBtn').addEventListener('click',previewWorld);$('worldCancelBtn').addEventListener('click',()=>{worldDraft=null;$('worldEditor').hidden=true});
 $('itemAnalyzeBtn').addEventListener('click',itemAuditDisplay);$('itemVerifyBtn').addEventListener('click',itemVerification);$('itemTeachBtn').addEventListener('click',openTeach);$('itemClarifyBtn').addEventListener('click',itemClarifyOpen);$('itemClarifyApplyBtn').addEventListener('click',itemClarifyApply);$('itemClarifyCancelBtn').addEventListener('click',()=>{$('itemClarify').hidden=true;itemClarifyDraft=null});$('creationText').addEventListener('input',()=>{if(creationKind==='item')itemAuditDisplay()});
 $('refMemoryClear').addEventListener('click',()=>{if(!confirm('Remove all locally remembered referee examples?'))return;refLibrary=[];refWriteMemory();refMemoryList()});$('interpretBtn').addEventListener('click',v7Interpret);$('simulateBtn').addEventListener('click',v7OpenSimulator);$('v7RunBtn').addEventListener('click',v7Simulate);$('v7EditBtn').addEventListener('click',v7OpenWorld);$('v7TeachBtn').addEventListener('click',()=>{if(creationKind==='world'){notice('For world creations, edit the World Studio behaviors and conditions.',false);v7OpenWorld()}else openTeach()});$('dashboardPlayer').addEventListener('change',e=>{dashboardPlayerId=e.target.value;renderDashboard()});document.querySelectorAll('#dashboardTabs [data-dash]').forEach(b=>b.addEventListener('click',()=>{dashboardTab=b.dataset.dash;renderDashboard()}));setupNames();switchKind('space');$('resumeBtn').hidden=!readSave();
+
+// Last Rule Standing v0.8.2 — Reliability Patch 1
+
+const LRS_parseRule=parseRule;
+
+parseRule=function(text,kind){
+ const s=clean(text);
+
+ if(kind==='rule'&&/^(?:everyone|everybody|all players|players) can (?:now )?(?:die|be eliminated)(?: again)?[.!?]?$/i.test(s)){
+  return{
+   type:/\bagain\b|\bnow\b/i.test(s)?'end-no-death':'manual',
+   trigger:'once',
+   effects:[]
+  };
+ }
+
+ return LRS_parseRule(text,kind);
+};
+
+// Only request space targets when an action actually needs them.
+
+const LRS_renderTargets=renderTaughtTargets;
+
+renderTaughtTargets=function(){
+ if(targetUse?.action!=='taught')return LRS_renderTargets();
+
+ const owned=player().inventory.find(x=>x.uid===targetUse.uid);
+ const item=game.shop.find(x=>x.id===owned?.itemId);
+ const actions=item?.teaching?.actions;
+
+ if(!actions)return LRS_renderTargets();
+
+ const previous=actions.map(a=>[
+  a.tileMode,
+  a.tileMode2,
+  a.destination
+ ]);
+
+ actions.forEach(a=>{
+  if(!SPACE_ACTIONS.has(a.type))a.tileMode='shop';
+
+  if(!['connect_spaces','remove_connection'].includes(a.type)){
+   a.tileMode2='shop';
+  }
+
+  if(a.type!=='teleport')a.destination='shop';
+ });
+
+ try{
+  return LRS_renderTargets();
+ }finally{
+  actions.forEach((a,i)=>{
+   [a.tileMode,a.tileMode2,a.destination]=previous[i];
+  });
+ }
+};
+
+// Open World Studio even when the description is initially empty.
+
+const LRS_switchKind=switchKind;
+
+switchKind=function(kind){
+ LRS_switchKind(kind);
+
+ if(kind==='world'&&game?.phase==='create'&&$('worldEditor').hidden){
+  worldDraft=worldDraft||newWorldDraft();
+  renderWorldEditor();
+ }
+};
+
+// Correct displayed version.
+
+document.querySelector('footer').textContent=
+ 'Last Rule Standing · Version 0.8.2 · Local-first prototype · All rules and items are created by players.';
+// Last Rule Standing v0.8.2 — Reliability Patch 2
+
+const LRS_itemDescribe=itemDescribe;
+
+const LRS_unsupported=
+ /\b(?:immune|immunity|invulnerable|invincibility|block|blocks|absorb|absorbs|rewind|resurrect|summon|explode|transform|reverse time)\b/i;
+
+// Flag mechanics that cannot be executed.
+
+itemDescribe=function(text){
+ const result=LRS_itemDescribe(text);
+
+ if(LRS_unsupported.test(text)){
+  result.warnings.push(
+   'Unsupported ability needs teaching or an engine extension: this item cannot perform all its advertised effects.'
+  );
+
+  result.complete=false;
+ }
+
+ return result;
+};
+
+// Make unsupported mechanics explicit in Referee Questions.
+
+const LRS_itemClarifyOpen=itemClarifyOpen;
+
+itemClarifyOpen=function(){
+ LRS_itemClarifyOpen();
+
+ if(itemClarifyDraft&&LRS_unsupported.test(itemClarifyDraft.text)){
+  itemClarifyDraft.unsupported=true;
+
+  $('itemClarifyQuestions').textContent=
+   'The described ability is not executable by this item engine. '+
+   'Edit the description to an implemented ability, or wait until that mechanic is added. '+
+   'The referee will not silently replace it with healing or damage.';
+ }
+};
+
+// Make replacement item descriptions match the approved actions.
+
+const LRS_itemClarifyApply=itemClarifyApply;
+
+itemClarifyApply=function(){
+ const d=itemClarifyDraft;
+ const wasGeneric=!!d?.fields?.effect;
+ const original=d?.text;
+
+ LRS_itemClarifyApply();
+
+ if(!wasGeneric||!pendingTeaching||!original||!$('itemClarify').hidden){
+  return;
+ }
+
+ const a=pendingTeaching.teaching.actions?.[0];
+ const info=LRS_itemDescribe(original);
+
+ if(!a||!info.name||info.price===null)return;
+
+ const to={
+  actor:'its user',
+  selected:'a chosen opponent',
+  all:'every player',
+  others:'all opponents'
+ }[a.target]||'its user';
+
+ const action={
+  damage:`deals ${a.amount} damage to ${to}`,
+  heal:`heals ${to} for ${a.amount} HP`,
+  steal_hp:`steals ${a.amount} HP from a chosen opponent`,
+  give_currency:`gives ${a.amount} ${a.currency} to ${to}`,
+  transfer_currency:`steals ${a.amount} ${a.currency} from a chosen opponent`,
+  teleport:'teleports its user to the Shop'
+ }[a.type];
+
+ if(!action)return;
+
+ const cost=info.currency==='free'
+  ?'free'
+  :info.price+' '+info.currency;
+
+ const revised=
+  `Create an item called ${info.name} for ${cost} that ${action}.`;
+
+ $('creationText').value=revised;
+
+ pendingTeaching.text=revised;
+ pendingTeaching.teaching.original=revised;
+
+ itemAuditDisplay();
+
+ notice(
+  'The item description was REPLACED to match the action you chose. '+
+  'Check the new wording and run Test Purchase & Use before creating it.',
+  false
+ );
+};
+
+// Replace previously registered button handlers with corrected versions.
+
+$('itemClarifyBtn').removeEventListener(
+ 'click',LRS_itemClarifyOpen
+);
+
+$('itemClarifyBtn').addEventListener(
+ 'click',itemClarifyOpen
+);
+
+$('itemClarifyApplyBtn').removeEventListener(
+ 'click',LRS_itemClarifyApply
+);
+
+$('itemClarifyApplyBtn').addEventListener(
+ 'click',itemClarifyApply
+);
+
 </script>
 </body>
 </html>
